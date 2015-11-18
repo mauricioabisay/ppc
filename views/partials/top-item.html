@@ -1,0 +1,36 @@
+<article class="ppc-top-item" ng-controller="ApoyarCtrl as ctrl">
+  <div class="hidden-xs hidden-sm col-md-4 summary">
+    <section class="votos">
+      <span class="numero">{{item.votos | number}}</span>
+      <span class="imagen"><img src="img/votos.svg" alt="" /></span>
+    </section>
+    <section class="autor">{{item.autor}}</section>
+    <section class="categorias">
+      <span ng-repeat="c in item.categorias">{{c}}{{(!$last)?', ':''}}</span>
+    </section>
+    <section class="representantes">
+      <h4 class="representantes-texto">REPRESENTANTES:</h4>
+      <article class="representante" ng-repeat="r in item.representantes">
+        <section class="nombre">{{r.nombre}}</section>
+        <section class="cargo">{{r.cargo}}</section>
+        <section class="status" ng-show="{{r.status}}">&#x2714</section>
+      </article>
+    </section>
+  </div>
+  <div class="col-sm-12 col-md-8">
+      <h4 class="mi-propuesta-texto">Mi propuesta es...</h4>
+      <section class="fecha">{{item.fecha|date: 'longDate'}}</section>
+
+      <div class="comillas-top"><img src="img/comillastop.svg" alt="" /></div>
+      <section class="titulo"><p>{{item.titulo}}</p></section>
+      <div class="comillas-bottom"><img src="img/comillasbottom.svg" alt="" /></div>
+
+      <center>
+        <input class="apoyar" type="button" value="APOYA ESTA PROPUESTA" ng-click="ctrl.apoyar(item)"/>
+      </center>
+      <center>
+        <input type="image" class="apoya-tw" src="img/twit.svg"/>
+        <input type="image" class="apoya-fb" src="img/face.svg"/>
+      </center>
+  </div>
+</article>

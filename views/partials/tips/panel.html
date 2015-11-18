@@ -1,0 +1,28 @@
+<div class="row">
+  <section class="col-sm-12 col-md-12">
+    <form class="ppc-new-tip">
+      <h2>Nuevo Tip</h2>
+      <textarea rows="8" ng-model="tip.contenido" style="width:100%" placeholder="Escribe el nuevo tip..."></textarea>
+      <input type="button" ng-click="guardar()" value="Guardar">
+    </form>
+  </section>
+</div>
+
+<div class="row">
+  <section class="pcc-tips-list col-sm-12 col-md-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Tip</th>
+          <th>Opc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="t in tips">
+          <td>{{t.contenido}}</td>
+          <td><input type="button" ng-click="borrar(t._id)" value="Borrar"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

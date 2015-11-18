@@ -1,0 +1,35 @@
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/"><img class="img-responsive" src="img/logo.svg"/></a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#/create-titulo/">NUEVA PROPUESTA</a></li>
+        <li><a href="#/list/">TODAS LAS PROPUESTAS</a></li>
+        <li><a href="#/list-atendidas/">PROPUESTAS ATENDIDAS</a></li>
+        <!--<li><a href="#/list-sin-atender/">PROPUESTAS SIN ATENDER</a></li>-->
+        <li ng-show="(usuario == null)"><a href="#/login/">REGISTRO</a></li>
+
+        <li role="presentation" class="dropdown" ng-show="(!(usuario == null))">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            {{usuario.nombre}} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Salir</a></li>
+          </ul>
+        </li>
+
+        <li ng-show="usuario.administrador"><a href="#/categorias/">CATEGORIAS</a></li>
+        <li ng-show="usuario.administrador"><a href="#/tips/">TIPS</a></li>
+      </ul>
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</nav><!-- /.navbar -->

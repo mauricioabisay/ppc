@@ -1,0 +1,39 @@
+<div class="row">
+  {{usuario.name}}
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-8">
+    <article class="ppc-top-nacional">
+      <h2>NACIONAL | MÁS VOTADA</h2>
+      <ppc-top class="col-sm-12 col-md-12" item="top_nacional"></ppc-top>
+    </article>
+
+    <article class="ppc-top-local">
+      <h2>LOCAL | MÁS VOTADA</h2>
+      <ppc-top class="col-sm-12 col-md-12" item="top_local"></ppc-top>
+    </article>
+  </div>
+
+  <div class="hidden-xs hidden-sm col-md-4 ppc-categorias-panel">
+    <h2>Propuestas por Categoria</h2>
+    <ul>
+      <li ng-repeat="c in categorias"><a href="#/list-categoria/{{c.titulo}}">{{c.titulo}}</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12 ppc-top-select">
+      <h2>Propuestas más populares</h2>
+      <select ng-model="alcanceTop" ng-change="actualizarLista(alcanceTop)">
+        <option value="ALL">TODAS</option>
+        <option value="Nacional">NACIONAL</option>
+        <option value="Estatal">ESTATAL</option>
+        <option value="Local">LOCAL</option>
+      </select>
+      <span class="flechaabajo">&#9660</span>
+  </div>
+
+  <ppc-list class="col-sm-12 col-md-3" ng-repeat="item in populares"></ppc-list>
+</div>

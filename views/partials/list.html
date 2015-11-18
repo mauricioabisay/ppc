@@ -1,0 +1,26 @@
+<div class="row col-sm-12 col-md-12 ppc-list-filter">
+  <div class="filter">
+    <h2 class="texto">Ubicación</h2>
+    <select class="input" ng-model="filterAlcance">
+      <option value="ALL" selected>TODAS</option>
+      <option value="Nacional">NACIONAL</option>
+      <option value="Estatal">ESTATAL</option>
+      <option value="Local">LOCAL</option>
+    </select>
+  </div>
+  <div class="filter">
+    <h2 class="texto">Tema</h2>
+    <select class="input" ng-model="aux_categorias" ng-change="addFilterCategoria(aux_categorias)">
+      <option ng-repeat="c in categorias" style="display:block">{{c.titulo}}</option>
+    </select>
+  </div>
+</div>
+
+<div class="ppc-list-filter-categorias">
+  <input type="button" ng-show="(filterCategoria.length<=0)" value="TODAS LAS CATEGORIAS"/>
+  <span ng-repeat="fc in filterCategoria"><input type="button" ng-click="addFilterCategoria(fc)" value="{{fc}}&#x1F7A9"/></span>
+</div>
+
+<div class="row col-sm-12 col-md-12">
+  <ppc-list class="col-sm-12 col-md-3" ng-repeat="item in list| hasAlcance: filterAlcance | hasCategories: filterCategoria"></ppc-list>
+</div>

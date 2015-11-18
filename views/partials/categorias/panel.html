@@ -1,0 +1,28 @@
+<div class="row">
+  <section class="col-sm-12 col-md-12">
+    <form class="ppc-new-categoria">
+      <h2>Nueva Categoria</h2>
+      <input type="text" ng-model="categoria_nueva.titulo" placeholder="Nombre" />
+      <input type="button" ng-click="guardar()" value="Guardar">
+    </form>
+  </section>
+</div>
+
+<div class="row">
+  <section class="pcc-categorias-list col-sm-12 col-md-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Opc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="c in categorias">
+          <td>{{c.titulo}}</td>
+          <td><input type="button" ng-click="borrar(c._id)" value="Borrar"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

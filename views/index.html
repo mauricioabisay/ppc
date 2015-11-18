@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="ppc">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="node_modules/angular/angular.js" charset="utf-8"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js" charset="utf-8"></script>
+    <script src="node_modules/angular-route/angular-route.min.js" charset="utf-8"></script>
+    <script src="node_modules/angular-cookies/angular-cookies.min.js" charset="utf-8"></script>
+    <script src="js/angular-locale_es.js" charset="utf-8"></script>
+    <script src="js/api.js" charset="utf-8"></script>
+    <script src="js/filters.js" charset="utf-8"></script>
+    <script src="js/controllers.js" charset="utf-8"></script>
+    <script src="js/app.js" charset="utf-8"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="node_modules/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+    <ppc-nav usuario="usuario"></ppc-nav>
+    <ng-view></ng-view>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<article class="ppc-item-detail col-sm-12 col-md-12">
+
+  <div class="hidden-xs hidden-sm col-md-2 summary">
+    <section class="votos">
+      <span class="numero">{{item.votos | number}}</span>
+      <span class="imagen"><img src="img/votos.svg" alt="" /></span>
+    </section>
+    <section class="autor">{{item.autor}}</section>
+    <section class="categorias">
+      <span ng-repeat="c in item.categorias">{{c}}{{(!$last)?', ':''}}</span>
+    </section>
+    <section class="representantes">
+      <h4 class="representantes-texto">REPRESENTANTES:</h4>
+      <article class="representante" ng-repeat="r in item.representantes">
+        <section class="nombre">{{r.nombre}}</section>
+        <section class="cargo">{{r.cargo}}</section>
+        <section class="status" ng-show="{{r.status}}">&#x2714</section>
+      </article>
+    </section>
+  </div>
+
+	<div class="col-sm-12 col-md-6 descripcion">
+      <h4 class="mi-propuesta-texto">Mi propuesta es...</h4>
+      <section class="fecha">{{item.fecha | date: 'dd-MMMM-yyyy'}}</section>
+
+			<div class="comillas-top"><img src="img/comillastop.svg" alt="" /></div>
+      <section class="titulo"><p>{{item.titulo}}</p></section>
+      <div class="comillas-bottom"><img src="img/comillasbottom.svg" alt="" /></div>
+
+      <section class="alcance">{{item.alcance}}</section>
+      <section class="impacto">{{item.impacto}}</section>
+      <section class="beneficiarios">{{item.beneficiarios}}</section>
+      <section class="ubicacion">{{item.ubicacion}}</section>
+  </div>
+
+  <div class="col-sm-12 col-md-4 graficas">
+    <center>
+      <section class="col-sm-12 col-md-6 grafica-participantes">
+        <div class="grafica-titulo">PARTICIPANTES</div>
+      </section>
+
+      <section class="col-sm-12 col-md-6 grafica-genero">
+        <div class="grafica-titulo">GÉNERO</div>
+      </section>
+    </center>
+    <center class="grafica-edades col-sm-12 col-md-12">
+      <div class="grafica-titulo">EDADES</div>
+    </center>
+
+  </div>
+
+
+	<div class="col-sm-12 col-md-12">
+    <center>
+      <input type="button" class="apoyar" ng-click="apoyar(item)" value="APOYA ESTA PROPUESTA">
+    </center>
+    <center>
+			<input type="image" class="apoya-tw" src="img/twit.svg"/>
+			<input type="image" class="apoya-fb" src="img/face.svg"/>
+    </center>
+  </div>
+</article>
