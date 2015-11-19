@@ -1,4 +1,4 @@
-var app = angular.module('ppc', ['ngRoute', 'ppcControllers', 'ppcFilters']);
+var app = angular.module('ppc', ['ngRoute', 'ppcControllers', 'ppcFilters', 'ppcApi']);
 
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
@@ -51,6 +51,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'PropuestaListCtrl',
     controllerAs: 'ctrl'
   })
+  .when('/list/:atendida', {
+    templateUrl: './partials/list.html',
+    controller: 'PropuestaListCtrl',
+    controllerAs: 'ctrl'
+  })
   .when('/categorias',{
     templateUrl: './partials/categorias/panel.html',
     controller: 'CategoriasCtrl',
@@ -68,26 +73,39 @@ app.config(['$routeProvider', function ($routeProvider) {
   })
 }]);
 
-app.run(function ($rootScope) {
+app.run(function ($rootScope, $location, propuestas) {
   $rootScope.usuario = null;
+  $rootScope.salir = function () {
+    $rootScope.usuario = null;
+    $location.path('/');
+  };
+  $rootScope.apoyar = function (item) {
+    if($rootScope.usuario == null) {
+      $location.path('/login');
+    } else {
+      item.votos = item.votos + 1;
+      propuestas.update(item);
+    }
+  };
+});
+
+app.controller('ApoyarCtrl', function ($rootScope, $scope, $location, propuestas) {
+  this.apoyar = function (item) {
+    if($rootScope.usuario == null) {
+      $location.path('/login');
+    } else {
+      item.votos = item.votos + 1;
+      propuestas.update(item);
+    }
+  };
 });
 
 app.directive('ppcNav', function () {
   return {
     restrict: 'E',
-    templateUrl: './partials/menu.html',
-    scope: {
-      usuario: '='
-    }
+    templateUrl: './partials/menu.html'
   };
 });
-
-app.controller('ApoyarCtrl', ['propuestas', function (propuestas) {
-  this.apoyar = function (item) {
-    item.votos = item.votos + 1;
-    propuestas.update(item);
-  };
-}]);
 
 app.directive('ppcTop', function () {
   return {

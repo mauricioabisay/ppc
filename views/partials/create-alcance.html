@@ -14,11 +14,11 @@
       <span>Nacional</span>
     </label></p>
     <p><label>
-      <input type="radio" name="alcance" ng-model="propuesta_nueva.alcance" value="Estatal">
+      <input type="radio" name="alcance" ng-model="propuesta_nueva.alcance" value="{{usuario.estado}}">
       <span>Estatal</span>
     </label></p>
     <p><label>
-      <input type="radio" name="alcance" ng-model="propuesta_nueva.alcance" value="Local">
+      <input type="radio" name="alcance" ng-model="propuesta_nueva.alcance" value="{{usuario.localidad}}">
       <span>Local</span>
     </label></p>
     <center class="col-sm-12 col-md-12">
@@ -30,9 +30,7 @@
   <div class="hidden-xs hidden-sm col-md-12">
     <article class="ppc-tip">
       <section class="header">TIP</section>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
+      <p>{{tip.contenido}}</p>
     </article>
   </div>
 </div>

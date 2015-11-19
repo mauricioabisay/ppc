@@ -29,10 +29,10 @@
       <select ng-model="alcanceTop" ng-change="actualizarLista(alcanceTop)">
         <option value="ALL">TODAS</option>
         <option value="Nacional">NACIONAL</option>
-        <option value="Estatal">ESTATAL</option>
-        <option value="Local">LOCAL</option>
+        <option value="{{(usuario.estado)?usuario.estado:'Puebla'}}">ESTATAL</option>
+        <option value="{{(usuario.localidad)?usuario.localidad:'PUEBLA'}}">LOCAL</option>
       </select>
-      <span class="flechaabajo">&#9660</span>
+      <!--<span class="flechaabajo">&#9660</span>-->
   </div>
 
   <ppc-list class="col-sm-12 col-md-3" ng-repeat="item in populares"></ppc-list>

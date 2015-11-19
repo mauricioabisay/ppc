@@ -4,6 +4,7 @@ var PropuestaSchema = new mongoose.Schema(
   {
     fecha:        { type: Date, default: Date.now },
     votos:        { type: Number, default: 0 },
+    //atendida:     { type: Boolean, default false },
     estado:         String,
     titulo:         String,
     autor:          String,

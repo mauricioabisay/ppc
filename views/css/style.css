@@ -377,15 +377,26 @@
         font-size: 1em;
         border-right: 1px solid white;
     }
-    /*
-    select {
-        border: 0 !important;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-color: transparent;
-        color: white;
-        content: "23";
-    }*/
+
+    .ppc-top-select select {
+      border: 1 !important;
+      border-color: white;
+      -webkit-appearance: normal;
+      -moz-appearance: normal;
+      background-color: transparent;
+      color: white;
+      content: "23";
+      margin-top: 27px;
+      margin-bottom: 27px;
+      padding-right: 8px;
+      margin-right: 8px;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    .ppc-top-select select option {
+      color: black;
+    }
 
     .ppc-item {
         margin-bottom: 20px;
@@ -591,21 +602,15 @@
     }
 
     .mail,
+    .nombre,
     .pass,
     .sexo,
     .registro .fecha,
     .estado,
     .ciudad {
         display: block;
-        width: 400px;
         margin: auto;
         margin-bottom: 13px;
-        position: relative;
-    }
-
-    .registro label,
-    .login label {
-        width: 134px;
     }
 
     .registro .sexo input[type="radio"] {
@@ -628,6 +633,11 @@
         padding-left: 4px;
     }
 
+    .registro .sexo>span>label>span {
+      vertical-align: super;
+    }
+
+    /*
     .registro .sexo span,
     .registro .fecha span {
         width: 62%;
@@ -640,15 +650,17 @@
         top: -6px;
         width: 36%;
         padding-right: 20px;
-    }
+    }*/
 
     .registro select {
-        border: 0 !important;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background-color: transparent;
-        color: #f0f;
-        content: "23";
+      border: 1 !important;
+      border-color: white;
+      -webkit-appearance: normal;
+      -moz-appearance: normal;
+      background-color: transparent;
+      color: black;
+      content: "23";
+      width: 250px;
     }
 
     /**FITLROS DE BUSQUEDA**/
@@ -698,6 +710,7 @@
 
     .ppc-list-filter select {
         border: 1 !important;
+        border-color: white;
         -webkit-appearance: normal;
         -moz-appearance: normal;
         background-color: transparent;

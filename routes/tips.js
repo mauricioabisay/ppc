@@ -11,6 +11,13 @@ router.get('/', function (req, res, next) {
   });
 });
 
+router.get('/random', function (req, res, next) {
+  Tip.findOneRandom(function (err, data) {
+    if(err) {return next(err);}
+    res.json(data);
+  });
+});
+
 router.post('/', function (req, res, next) {
   var tip = new Tip(req.body);
   tip.save(function (err) {

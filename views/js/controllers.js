@@ -12,9 +12,12 @@ var aux_categorias = [
 ];
 
 ctrls.controller('PropuestaCreateCtrl',
-['$scope', '$location', 'propuestas',
-function ($scope, $location, propuestas) {
-
+['$scope', '$rootScope', '$location', 'propuestas',
+function ($scope, $rootScope, $location, propuestas) {
+  if(!$rootScope.usuario) {
+    $location.path('/login');
+    return;
+  }
   $scope.currentMenu = 'new';
   $scope.sugerencias = [];
   propuestas.getAllCategorias()
@@ -37,6 +40,14 @@ function ($scope, $location, propuestas) {
   } else {
     $scope.sugerencias = [];
   }
+
+  propuestas.getTip()
+  .success(function (data) {
+    $scope.tip = data;
+  })
+  .error(function () {
+    $scope.tip = {};
+  });
 
   this.buscar = function () {
     if( !($scope.propuesta_nueva.titulo === "") ) {
@@ -142,12 +153,12 @@ ctrls.controller('PropuestaHomeCtrl', [
       $scope.populares = [];
     });
   };
-
+  /*
   $scope.apoyar = function (item) {
     item.votos = item.votos + 1;
     propuestas.update(item);
     $location.path( '/' );
-  };
+  };*/
 
 }]);
 
@@ -162,10 +173,11 @@ ctrls.controller('PropuestaDetailCtrl',
     $scope.item = null;
   });
 
+  /*
   $scope.apoyar = function (item) {
     item.votos = item.votos + 1;
     propuestas.update(item);
-  };
+  };*/
 }]);
 
 ctrls.controller('PropuestaListCtrl', [
@@ -187,18 +199,39 @@ ctrls.controller('PropuestaListCtrl', [
       $scope.list = [];
     });
 
-    propuestas.getAllCategorias()
-    .success(function (data) {
-      $scope.categorias = data;
-    })
-    .error(function (err) {
-      $scope.categorias = aux_categorias;
-    });
+    if($routeParams.atendida === undefined) {
+      $scope.filterAtendida = '!';
+      propuestas.getAllCategorias()
+      .success(function (data) {
+        $scope.categorias = data;
+      })
+      .error(function (err) {
+        $scope.categorias = aux_categorias;
+      });
+    } else {
+      var filter = {};
+      if($routeParams.atendida == 'atendida') {
+        $scope.filterAtendida = true;
+        filter = {atendida: true};
+      } else {
+        $scope.filterAtendida = '!';
+        filter = {atendida: {$in: [null, false]}};
+      }
+      propuestas.getFilter(filter)
+      .success(function (data) {
+        $scope.list = data;
+      })
+      .error(function () {
+        $scope.list = [];
+      });
+    }
 
+    /*
     $scope.apoyar = function (item) {
       item.votos = item.votos + 1;
       propuestas.update(item);
-    };
+    };*/
+
     $scope.addFilterCategoria = function (categoria) {
       if($scope.filterCategoria.length == 0) {
         $scope.filterCategoria.push(categoria);
@@ -300,7 +333,6 @@ ctrls.controller('UserCtrl', [
           $scope.msg.texto = "Credenciales de acceso correctas.";
           $cookies.putObject('usuario', data);
           $rootScope.usuario = $cookies.getObject('usuario');
-          console.log(JSON.stringify($rootScope.usuario));
           $location.path('/');
         }
       })

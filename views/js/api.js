@@ -39,6 +39,11 @@ api.factory('propuestas', ['$http', function ($http) {
   dataFactory.searchTop = function (query) {
     return $http.post(urlBase + 'searchTop/', query);
   };
+
+  dataFactory.getTip = function () {
+    return $http.get('/tips/random');
+  };
+
   return dataFactory;
 }]);
 

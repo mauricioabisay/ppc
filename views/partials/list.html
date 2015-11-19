@@ -4,14 +4,21 @@
     <select class="input" ng-model="filterAlcance">
       <option value="ALL" selected>TODAS</option>
       <option value="Nacional">NACIONAL</option>
-      <option value="Estatal">ESTATAL</option>
-      <option value="Local">LOCAL</option>
+      <option value="{{(usuario.estado)?usuario.estado:'Puebla'}}">ESTATAL</option>
+      <option value="{{(usuario.localidad)?usuario.localidad:'PUEBLA'}}">LOCAL</option>
     </select>
   </div>
   <div class="filter">
     <h2 class="texto">Tema</h2>
     <select class="input" ng-model="aux_categorias" ng-change="addFilterCategoria(aux_categorias)">
       <option ng-repeat="c in categorias" style="display:block">{{c.titulo}}</option>
+    </select>
+  </div>
+  <div class="filter">
+    <h2 class="texto">Atendida</h2>
+    <select class="input" ng-model="filterAtendida">
+      <option style="display:block" value="true" ng-value="true">Sí</option>
+      <option style="display:block" value="!">No</option>
     </select>
   </div>
 </div>
@@ -22,5 +29,5 @@
 </div>
 
 <div class="row col-sm-12 col-md-12">
-  <ppc-list class="col-sm-12 col-md-3" ng-repeat="item in list| hasAlcance: filterAlcance | hasCategories: filterCategoria"></ppc-list>
+  <ppc-list class="col-sm-12 col-md-3" ng-repeat="item in list | filter: {atendida: filterAtendida}  | hasAlcance: filterAlcance | hasCategories: filterCategoria"></ppc-list>
 </div>

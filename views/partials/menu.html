@@ -13,17 +13,17 @@
       <ul class="nav navbar-nav">
         <li><a href="#/create-titulo/">NUEVA PROPUESTA</a></li>
         <li><a href="#/list/">TODAS LAS PROPUESTAS</a></li>
-        <li><a href="#/list-atendidas/">PROPUESTAS ATENDIDAS</a></li>
-        <!--<li><a href="#/list-sin-atender/">PROPUESTAS SIN ATENDER</a></li>-->
+        <li><a href="#/list/atendida">PROPUESTAS ATENDIDAS</a></li>
+        <li><a href="#/list/sin-atender">PROPUESTAS SIN ATENDER</a></li>
         <li ng-show="(usuario == null)"><a href="#/login/">REGISTRO</a></li>
 
-        <li role="presentation" class="dropdown" ng-show="(!(usuario == null))">
+        <li role="presentation" class="dropdown" ng-show="(usuario)">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             {{usuario.nombre}} <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Perfil</a></li>
-            <li><a href="#">Salir</a></li>
+            <!--<li><a href="#">Perfil</a></li>-->
+            <li><a href="" ng-click="salir()">Salir</a></li>
           </ul>
         </li>
 

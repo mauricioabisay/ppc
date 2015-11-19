@@ -64,7 +64,6 @@ router.get('/searchByTitle/:titulo', function (req, res, next) {
 });
 
 router.post('/searchFilter/', function (req, res, next) {
-  console.log(req.body);
   Propuesta.find({$query: req.body, $orderby: {votos:-1}}, function (err, data) {
     if(err) {return next(err);}
     if(!data) {return res.json(null);}
@@ -83,7 +82,7 @@ router.post('/searchTop/', function (req, res, next) {
 router.get('/searchTopTen/:alcance', function (req, res, next) {
   if(req.params.alcance=='ALL') {
     Propuesta.find(
-      {$query: {}, $orderby: {votos:-1}},
+      {$query: {atendida: {$in: [null, false]}}, $orderby: {votos:-1}},
       null,
       {limit: 10},
       function (err, data) {
@@ -94,7 +93,13 @@ router.get('/searchTopTen/:alcance', function (req, res, next) {
     );
   } else {
     Propuesta.find(
-      {$query: {alcance:req.params.alcance}, $orderby: {votos:-1}},
+      {$query:
+        {$and: [
+          {atendida: {$in: [null, false]}},
+          {alcance:req.params.alcance}
+        ]},
+        $orderby: {votos:-1}
+      },
       null,
       {limit: 10},
       function (err, data) {
