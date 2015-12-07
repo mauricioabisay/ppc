@@ -41,6 +41,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'PropuestaDetailCtrl',
     controllerAs: 'ctrl'
   })
+  .when('/update/:id', {
+    templateUrl: './partials/propuestas/edit.html',
+    controller: 'PropuestaEditCtrl',
+    controllerAs: 'ctrl'
+  })
   .when('/list', {
     templateUrl: './partials/list.html',
     controller: 'PropuestaListCtrl',
@@ -71,6 +76,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'UserCtrl',
     controllerAs: 'ctrl'
   })
+  .when('/profile', {
+    templateUrl: './partials/usuarios/perfil.html',
+    controller: 'UserCtrl',
+    controllerAs: 'ctrl'
+  })
 }]);
 
 app.run(function ($rootScope, $location, propuestas) {
@@ -83,20 +93,19 @@ app.run(function ($rootScope, $location, propuestas) {
     if($rootScope.usuario == null) {
       $location.path('/login');
     } else {
-      item.votos = item.votos + 1;
-      propuestas.update(item);
+      item.usuario = $rootScope.usuario._id;
+      propuestas.apoyar(item)
+      .success(function (data) {
+      })
+      .error(function () {
+      });
     }
   };
-});
-
-app.controller('ApoyarCtrl', function ($rootScope, $scope, $location, propuestas) {
-  this.apoyar = function (item) {
-    if($rootScope.usuario == null) {
-      $location.path('/login');
-    } else {
-      item.votos = item.votos + 1;
-      propuestas.update(item);
-    }
+  $rootScope.editar = function (item) {
+    $location.path( '/update/' + item._id );
+  };
+  $rootScope.detalle = function (item) {
+    $location.path('/detail/' + item._id);
   };
 });
 

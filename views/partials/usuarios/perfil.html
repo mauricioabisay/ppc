@@ -1,0 +1,83 @@
+<form class="perfil col-sm-12 col-md-12">
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Correo Electrónico:</label>
+    <span class="col-sm-12 col-md-6">
+      <input type="text" ng-model="usuario.email" placeholder="Correo Electrónico"/>
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Contraseña:</label>
+    <span class="col-sm-12 col-md-6">
+      <input type="password" ng-model="usuario.password" placeholder="Contraseña"/>
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Nombre:</label>
+    <span class="col-sm-12 col-md-6">
+      <input type="text" ng-model="usuario.nombre" placeholder="Nombre Completo"/>
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Sexo:</label>
+    <span class="col-sm-12 col-md-6">
+      <label><input type="radio" name="sexo" ng-value="false" value="false" ng-model="usuario.mujer"/><span>Masculino</span></label>
+      <label><input type="radio" name="sexo" ng-value="true" value="true" ng-model="usuario.mujer"/><span>Femenino</span></label>
+    </span>
+  </div>
+  <div class="row fecha">
+    <label class="col-sm-12 col-md-6">F.Nacimiento:</label>
+    <span class="col-sm-12 col-md-6">
+      <input type="text" ng-model="dd" placeholder="dd" size="2" /><span>/</span>
+      <input type="text" ng-model="mm" placeholder="mm" size="2" /><span>/</span>
+      <input type="text" ng-model="aaaa" placeholder="aaaa" size="4"/>
+    </span>
+  </div>
+
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Estado:</label>
+    <span class="col-sm-12 col-md-6">
+    <select ng-model="usuario.estado">
+      <option>Aguascalientes</option>
+      <option>Baja California</option>
+      <option>Baja California Sur</option>
+      <option>Campeche</option>
+      <option>Chiapas</option>
+      <option>Chihuahua</option>
+      <option>Coahuila</option>
+      <option>Colima</option>
+      <option>Durango</option>
+      <option>Estado de México</option>
+      <option>Guanajuato</option>
+      <option>Guerrero</option>
+      <option>Hidalgo</option>
+      <option>Jalisco</option>
+      <option>Michoacán</option>
+      <option>Morelos</option>
+      <option>Nayarit</option>
+      <option>Nuevo León</option>
+      <option>Oaxaca</option>
+      <option>Puebla</option>
+      <option>Querétaro</option>
+      <option>Quintana Roo</option>
+      <option>San Luis Potosí</option>
+      <option>Sinaloa</option>
+      <option>Sonora</option>
+      <option>Tabasco</option>
+      <option>Tamaulipas</option>
+      <option>Tlaxcala</option>
+      <option>Veracruz de Ignacio de la Llave</option>
+      <option>Yucatán</option>
+      <option>Zacatecas</option>
+    </select>
+    </span>
+  </div>
+  <div class="row">
+    <label class="col-sm-12 col-md-6">Ciudad/Localidad:</label>
+    <span class="col-sm-12 col-md-6">
+      <input type="text" ng-model="usuario.localidad" placeholder="Ciudad/Localidad"/>
+    </span>
+  </div>
+  <center class="col-sm-12 col-md-12 row">
+    <input type="button" ng-click="ctrl.actualizar()" value="Actualizar Perfil"/>
+  </center>
+</form>

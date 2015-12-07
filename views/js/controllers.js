@@ -11,6 +11,9 @@ var aux_categorias = [
   {titulo:'Constitución Política'},{titulo:'Leyes Estatales'},{titulo:'Leyes Municipales'},{titulo:'Reglamentos'}
 ];
 
+/**
+Controlador para crear una nueva PROPUESTA
+*/
 ctrls.controller('PropuestaCreateCtrl',
 ['$scope', '$rootScope', '$location', 'propuestas',
 function ($scope, $rootScope, $location, propuestas) {
@@ -95,19 +98,19 @@ function ($scope, $rootScope, $location, propuestas) {
     $location.path( '/detail' );
   };
   this.publicar = function () {
-    var propuesta;
+    if($rootScope.usuario) {
+      $scope.propuesta_nueva.autor = $rootScope.usuario.nombre;
+      $scope.propuesta_nueva.autorId = $rootScope.usuario._id;
+    } else {
+      $scope.propuesta_nueva.autor = 'ANÓNIMO';
+    }
     propuestas.save($scope.propuesta_nueva)
     .success(function (data) {
-      propuesta = data;
+      $location.path( '/detail/' + data._id);
     })
     .error(function (err) {
-      propuesta = null;
-    });
-    if(propuesta != null) {
-      $location.path( '/detail/' + propuesta._id);
-    } else {
       $location.path( '/' );
-    }
+    });
   };
 }]);
 
@@ -153,13 +156,6 @@ ctrls.controller('PropuestaHomeCtrl', [
       $scope.populares = [];
     });
   };
-  /*
-  $scope.apoyar = function (item) {
-    item.votos = item.votos + 1;
-    propuestas.update(item);
-    $location.path( '/' );
-  };*/
-
 }]);
 
 ctrls.controller('PropuestaDetailCtrl',
@@ -172,13 +168,34 @@ ctrls.controller('PropuestaDetailCtrl',
   .error(function (err) {
     $scope.item = null;
   });
-
-  /*
-  $scope.apoyar = function (item) {
-    item.votos = item.votos + 1;
-    propuestas.update(item);
-  };*/
 }]);
+
+ctrls.controller('PropuestaEditCtrl', function ($scope, $routeParams, propuestas) {
+  $scope.currentMenu = 'detail';
+  propuestas.get($routeParams.id)
+  .success(function (data) {
+    $scope.propuesta = data;
+  })
+  .error(function (err) {
+    $scope.item = null;
+  });
+
+  this.publicar = function () {
+    if($rootScope.usuario) {
+      $scope.propuesta.autor = $rootScope.usuario.nombre;
+      $scope.propuesta.autorId = $rootScope.usuario._id;
+    } else {
+      $scope.propuesta.autor = 'ANÓNIMO';
+    }
+    propuestas.save($scope.propuesta)
+    .success(function (data) {
+      $location.path( '/detail/' + data._id);
+    })
+    .error(function (err) {
+      $location.path( '/' );
+    });
+  };
+});
 
 ctrls.controller('PropuestaListCtrl', [
   '$scope', '$routeParams', 'propuestas',
@@ -225,12 +242,6 @@ ctrls.controller('PropuestaListCtrl', [
         $scope.list = [];
       });
     }
-
-    /*
-    $scope.apoyar = function (item) {
-      item.votos = item.votos + 1;
-      propuestas.update(item);
-    };*/
 
     $scope.addFilterCategoria = function (categoria) {
       if($scope.filterCategoria.length == 0) {
@@ -279,51 +290,58 @@ ctrls.controller('CategoriasCtrl', ['$scope', 'categorias', function ($scope, ca
     });
   };
 }]);
-
+/**
+Controlador de TIPS, permite Agregar, Borrar y Listar
+*/
 ctrls.controller('TipsCtrl', ['$scope', 'tips', function ($scope, tips) {
-  tips.getAll()
+  $scope.tip = null;
+  $scope.guardar = function () {
+    tips.save($scope.tip).success(function () {list();});
+    $scope.tip = null;
+  };
+  $scope.borrar = function (id) {
+    tips.remove(id).success(function () {list();});
+  };
+  function list() {
+    tips.getAll()
     .success(function (data) {
       $scope.tips =  data;
     })
     .error(function (err) {
       $scope.tips = [];
     });
-  $scope.tip = null;
-  $scope.guardar = function () {
-    tips.save($scope.tip);
-    $scope.tip = null;
-    tips.getAll()
-      .success(function (data) {
-        $scope.tips =  data;
-      })
-      .error(function (err) {
-        $scope.tips = [];
-      });
-  };
-  $scope.borrar = function (id) {
-    tips.remove(id);
-    tips.getAll()
-      .success(function (data) {
-        $scope.tips =  data;
-      })
-      .error(function (err) {
-        $scope.tips = [];
-      });
   };
 }]);
 
 ctrls.controller('UserCtrl', [
   '$scope', '$rootScope', '$cookies', '$location', 'usuarios',
   function ($scope, $rootScope, $cookies, $location, usuarios) {
-    $scope.usuario = {};
-    $scope.dd;$scope.mm;$scope.aaaa;$scope.msg = {tipo:null,texto:''};
+    if($rootScope.usuario == null) {
+      $scope.usuario = {};
+      $scope.log = {}
+      $scope.dd;$scope.mm;$scope.aaaa;$scope.msg = {tipo:null,texto:''};
+    } else {
+      var aux_date = new Date($rootScope.usuario.nacimiento);
+      $scope.dd = aux_date.getDate();
+      $scope.mm = aux_date.getMonth()+1;
+      $scope.aaaa = aux_date.getFullYear();
+    }
+
     this.registrar = function () {
       $scope.usuario.nacimiento = new Date($scope.aaaa, $scope.mm-1, $scope.dd);
-      usuarios.save($scope.usuario);
-      $scope.usuario = {};
+      usuarios.save($scope.usuario).success(function (data) {
+        $scope.msg.tipo = 'OK';
+        $scope.msg.texto = "Credenciales de acceso correctas.";
+        $cookies.putObject('usuario', data);
+        $rootScope.usuario = $cookies.getObject('usuario');
+        $location.path('/');
+      });
+    };
+    this.actualizar = function () {
+
     };
     this.ingresar = function () {
-      usuarios.get({email:$scope.usuario.email,password:$scope.usuario.password})
+      usuarios.get({email:$scope.log.email,password:$scope.log.password})
       .success(function (data) {
         if(!data) {
           $scope.msg.tipo = 'ERR';

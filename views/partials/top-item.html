@@ -1,4 +1,4 @@
-<article class="ppc-top-item" ng-controller="ApoyarCtrl as ctrl">
+<article class="ppc-top-item">
   <div class="hidden-xs hidden-sm col-md-4 summary">
     <section class="votos">
       <span class="numero">{{item.votos | number}}</span>
@@ -26,7 +26,7 @@
       <div class="comillas-bottom"><img src="img/comillasbottom.svg" alt="" /></div>
 
       <center>
-        <input class="apoyar" type="button" value="APOYA ESTA PROPUESTA" ng-click="ctrl.apoyar(item)"/>
+        <input type="button" class="apoyar" ng-click="$root.detalle(item)" value="DETALLE"/>
       </center>
       <center>
         <input type="image" class="apoya-tw" src="img/twit.svg"/>

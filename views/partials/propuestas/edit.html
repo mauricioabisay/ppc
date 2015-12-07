@@ -1,0 +1,55 @@
+<!--1er paso-->
+<div class="col-sm-12 col-md-12">
+  <form class="ppc-new-form col-sm-12 col-md-12">
+    <div class="nueva-mi-propuesta-texto">
+      <h2>Título</h2>
+      <span class="texto">Mi propuesta es...</span>
+      <span class="max">[Máx. 140 caracteres]</span>
+    </div>
+    <textarea ng-model="propuesta.titulo" rows="8" style="width:100%"></textarea>
+
+      <div><label>
+        <input type="radio" name="alcance" ng-model="propuesta.alcance" value="Nacional">
+        <span>Nacional</div>
+      </label></span>
+      <div><label>
+        <input type="radio" name="alcance" ng-model="propuesta.alcance" value="{{usuario.estado}}">
+        <span>Estatal</div>
+      </label></span>
+      <div><label>
+        <input type="radio" name="alcance" ng-model="propuesta.alcance" value="{{usuario.localidad}}">
+        <span>Local</span>
+      </label></div>
+
+    <div class="col-sm-6" ng-repeat="c in categorias">
+      <label>
+        <input type="checkbox" name="categoria" ng-click="ctrl.agregarCategoria(c.titulo)">
+        {{c.titulo}}
+      </label>
+    </div>
+    <div class="nueva-mi-propuesta-texto">
+        <h2>Impacto</h2>
+        <span class="texto">¿Qué problemas y necesidades específicas cubrirá tu propuesta?</span>
+    </div>
+    <textarea ng-model="propuesta.impacto" rows="8" style="width:100%"></textarea>
+    <div class="nueva-mi-propuesta-texto">
+        <h2>Beneficiarios</h2>
+        <span class="texto">¿Quiénes o qué serán los beneficiarios directos e indirectos de tu propuesta?</span>
+    </div>
+    <textarea ng-model="propuesta.beneficiarios" rows="8" style="width:100%"></textarea>
+    <div class="nueva-mi-propuesta-texto">
+      <h2>Ubicación</h2>
+      <span class="texto">¿Qué espacio o localidad impacta tu propuesta?</span>
+    </div>
+    <textarea ng-model="propuesta.ubicacion" rows="8" style="width:100%"></textarea>
+    <center class="col-sm-12 col-md-12">
+      <input type="button" value="ACTUALIZAR" ng-click="ctrl.publicar()">
+    </center>
+  </form>
+  <div class="hidden-xs hidden-sm col-md-12">
+    <article class="ppc-tip">
+      <section class="header">TIP</section>
+      <p>{{tip.contenido}}</p>
+    </article>
+  </div>
+</div>

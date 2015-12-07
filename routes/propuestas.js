@@ -5,6 +5,8 @@ var Propuesta = mongoose.model('Propuesta');
 var Comentario = mongoose.model('Comentario');
 
 router.post('/', function (req, res, next) {
+  req.body.votos_detalle = [req.body.autorId];
+  req.body.votos = 1;
   var propuesta = new Propuesta(req.body);
   propuesta.save(function (err, propuesta) {
     if(err) {return next(err);}
@@ -123,6 +125,34 @@ router.put('/:id', function (req, res, next) {
       res.json(propuesta);
     }
   );
+});
+
+router.put('/apoyar/:id', function (req, res, next) {
+  Propuesta.find( {
+    $and: [
+      {_id: req.params.id},
+      {votos_detalle: {$in:[req.body.usuario]}}
+    ]
+  }, function (err, propuesta) {
+    if(err) {return next(err);}
+    if(propuesta.length > 0) {
+      return next(new Error('Ya has votado por esta propuesta.'));
+    } else {
+      req.body.votos = req.body.votos + 1;
+      req.body.votos_detalle.push(req.body.usuario);
+      delete req.body.usuario;
+      Propuesta.findByIdAndUpdate(
+        req.params.id,
+        {$set: req.body},
+        {new: true},
+        function (err, propuesta) {
+          if(err) {return next(err);}
+          if(!propuesta) {return next(new Error('Lo siento, no he podido encontrar la propuesta.'));}
+          res.json(propuesta);
+        }
+      );
+    }
+  } );
 });
 
 router.delete('/:id', function (req, res, next) {

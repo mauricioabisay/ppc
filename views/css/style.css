@@ -132,8 +132,8 @@
     }
 
     .ppc-item {
-        background-color: white;
-        padding: 25px;
+      background-color: white;
+      padding: 25px;
     }
 
     .ppc-item .fecha{
@@ -288,7 +288,7 @@
     .titulo {
         height: auto;
         text-align: center;
-        width: 412px;
+        width: 100%;
         margin: auto;
         display: table;
         height: 95px;
@@ -310,7 +310,8 @@
     .apoya,
     .apoyar,
     .registro input[type="button"],
-    .login input[type="button"] {
+    .login input[type="button"],
+    .perfil input[type="button"] {
         background-color: #0000ff;
         border: none;
         color: white;
@@ -399,7 +400,7 @@
     }
 
     .ppc-item {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
     }
 
     .ppc-item .autor {
@@ -592,7 +593,14 @@
         margin-top: 1vw;
     }
 
-    .registro {
+    .perfil {
+      background-color: white;
+      padding: 40px;
+      min-height: 370px;
+      margin-top: 1vw;
+    }
+
+    .registro, .perfil {
         margin-right: 10px;
     }
 
@@ -613,14 +621,22 @@
         margin-bottom: 13px;
     }
 
-    .registro .sexo input[type="radio"] {
+    .perfil .row {
+      display: block;
+      margin: auto;
+      margin-bottom: 13px;
+    }
+
+    .registro .sexo input[type="radio"], .perfil .sexo input[type="radio"] {
         outline: 0;
     }
 
     .registro input[type="text"],
     .registro input[type="password"],
     .login input[type="text"],
-    .login input[type="password"] {
+    .login input[type="password"],
+    .perfil input[type="text"],
+    .perfil input[type="password"] {
         padding: 3px;
         padding-left: 10px;
         color: #f0f;
@@ -633,7 +649,14 @@
         padding-left: 4px;
     }
 
-    .registro .sexo>span>label>span {
+    .perfil .fecha input[type="text"] {
+      width: 4em;
+      text-align: center;
+      padding-left: 4px;
+    }
+
+    .registro .sexo>span>label>span,
+    .perfil .sexo>span>label>span {
       vertical-align: super;
     }
 
@@ -661,6 +684,20 @@
       color: black;
       content: "23";
       width: 250px;
+    }
+
+    .perfil select {
+        border: 1 !important;
+        border-color: black;
+        -webkit-appearance: normal;
+        -moz-appearance: normal;
+        background-color: white;
+        color: black;
+        content: "23";
+    }
+
+    .perfil select option{
+      color: black;
     }
 
     /**FITLROS DE BUSQUEDA**/

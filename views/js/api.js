@@ -32,6 +32,10 @@ api.factory('propuestas', ['$http', function ($http) {
     return $http.put(urlBase + item._id, item);
   }
 
+  dataFactory.apoyar = function (item) {
+    return $http.put(urlBase + 'apoyar/' + item._id, item);
+  }
+
   dataFactory.getAllCategorias = function () {
     return $http.get('/categorias/');
   };
