@@ -91,8 +91,8 @@ function ($scope, $rootScope, $location, propuestas) {
   this.beneficios = function () {
     $location.path( '/create-beneficios' );
   };
-  this.ubicacion = function () {
-    $location.path( '/create-ubicacion' );
+  this.contexto = function () {
+    $location.path( '/create-contexto' );
   };
   this.detalle = function () {
     $location.path( '/detail' );
@@ -114,6 +114,9 @@ function ($scope, $rootScope, $location, propuestas) {
   };
 }]);
 
+/**
+Controlador que hace las operaciones del HOME
+*/
 ctrls.controller('PropuestaHomeCtrl', [
   '$scope', '$rootScope', '$location', '$cookies', 'propuestas',
   function ($scope, $rootScope, $location, $cookies, propuestas) {
@@ -158,6 +161,9 @@ ctrls.controller('PropuestaHomeCtrl', [
   };
 }]);
 
+/**
+Controlador para el detalle de la PROPUESTA
+*/
 ctrls.controller('PropuestaDetailCtrl',
 ['$scope', '$routeParams', 'propuestas', function ($scope, $routeParams, propuestas) {
   $scope.currentMenu = 'detail';
@@ -170,6 +176,9 @@ ctrls.controller('PropuestaDetailCtrl',
   });
 }]);
 
+/**
+Controlador para editar la PROPUESTA
+*/
 ctrls.controller('PropuestaEditCtrl', function ($scope, $routeParams, propuestas) {
   $scope.currentMenu = 'detail';
   propuestas.get($routeParams.id)
@@ -197,6 +206,9 @@ ctrls.controller('PropuestaEditCtrl', function ($scope, $routeParams, propuestas
   };
 });
 
+/**
+Controlador para las LISTAS de las PROPUESTAS
+*/
 ctrls.controller('PropuestaListCtrl', [
   '$scope', '$routeParams', 'propuestas',
   function ($scope, $routeParams, propuestas) {
@@ -257,6 +269,9 @@ ctrls.controller('PropuestaListCtrl', [
     };
 }]);
 
+/**
+Controlador para las operaciones CRUD de las Categorias
+*/
 ctrls.controller('CategoriasCtrl', ['$scope', 'categorias', function ($scope, categorias) {
   $scope.categorias = categorias.getAll()
   .success(function (data) {
@@ -312,7 +327,9 @@ ctrls.controller('TipsCtrl', ['$scope', 'tips', function ($scope, tips) {
     });
   };
 }]);
-
+/**
+Controlador para los USUARIOS, registro y login
+*/
 ctrls.controller('UserCtrl', [
   '$scope', '$rootScope', '$cookies', '$location', 'usuarios',
   function ($scope, $rootScope, $cookies, $location, usuarios) {
@@ -360,3 +377,17 @@ ctrls.controller('UserCtrl', [
       $scope.usuario = {};
     };
 }]);
+
+ctrls.controller('UsersCtrl', function ($rootScope, $scope, $location, usuarios) {
+  list();
+
+  function list() {
+    usuarios.getAll()
+    .success(function (data) {
+      $scope.usuarios = data;
+    })
+    .error(function () {
+      $scope.usuarios = [];
+    });
+  };
+});

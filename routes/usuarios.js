@@ -4,6 +4,20 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 
+router.get('/', function (req, res, next) {
+  Usuario.find({}, function (err, data) {
+    if(err) {return next(err);}
+    res.json(data);
+  });
+});
+
+router.post('/search', function (req, res, next) {
+  Usuario.find(req.body.search, function (err, data) {
+    if(err) {return next(err);}
+    res.json(data);
+  });
+});
+
 router.post('/', function (req, res, next) {
   var usuario = new Usuario(req.body);
   usuario.save(function (err, data) {

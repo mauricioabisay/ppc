@@ -13,7 +13,7 @@ var PropuestaSchema = new mongoose.Schema(
     alcance:        String,
     impacto:        String,
     beneficiarios:  String,
-    ubicacion:      String,
+    contexto:      String,
     categorias:     Array,
     comentarios:   [{ type: mongoose.Schema.Types.ObjectId, ref:'Comentario' }]
   }

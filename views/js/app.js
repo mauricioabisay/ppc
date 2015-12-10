@@ -31,8 +31,8 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'PropuestaCreateCtrl',
     controllerAs: 'ctrl'
   })
-  .when('/create-ubicacion', {
-    templateUrl: './partials/create-ubicacion.html',
+  .when('/create-contexto', {
+    templateUrl: './partials/create-contexto.html',
     controller: 'PropuestaCreateCtrl',
     controllerAs: 'ctrl'
   })
@@ -71,6 +71,11 @@ app.config(['$routeProvider', function ($routeProvider) {
     controller: 'TipsCtrl',
     contrllerAs: 'ctrl'
   })
+  .when('/users', {
+    templateUrl: './partials/usuarios/list.html',
+    controller: 'UsersCtrl',
+    controllerAs: 'ctrl'
+  })
   .when('/login', {
     templateUrl: './partials/usuarios/registro.html',
     controller: 'UserCtrl',
@@ -85,10 +90,12 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.run(function ($rootScope, $location, propuestas) {
   $rootScope.usuario = null;
+  /*Funcion que permite al usuario Salir de su cuenta*/
   $rootScope.salir = function () {
     $rootScope.usuario = null;
     $location.path('/');
   };
+  /*Funcion que permite al usuario Apoyar una propuesta*/
   $rootScope.apoyar = function (item) {
     if($rootScope.usuario == null) {
       $location.path('/login');
@@ -101,9 +108,11 @@ app.run(function ($rootScope, $location, propuestas) {
       });
     }
   };
+  /*Funcion que permite al usuario editar su propuesta*/
   $rootScope.editar = function (item) {
     $location.path( '/update/' + item._id );
   };
+  /*Funcion que permite al usuario ver el detalle de una propuesta*/
   $rootScope.detalle = function (item) {
     $location.path('/detail/' + item._id);
   };
@@ -115,7 +124,6 @@ app.directive('ppcNav', function () {
     templateUrl: './partials/menu.html'
   };
 });
-
 app.directive('ppcTop', function () {
   return {
     restrict: 'E',
@@ -124,7 +132,7 @@ app.directive('ppcTop', function () {
       item: '='
     }
   };
-})
+});
 app.directive('ppcList', function () {
   return {
     restrict: 'E',

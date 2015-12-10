@@ -1,0 +1,21 @@
+<div class="row">
+  <section class="pcc-tips-list col-sm-12 col-md-12">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Opc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="u in usuarios">
+          <td>{{u.nombre}}</td>
+          <td>{{u.email}}</td>
+          <td><input type="button" value="Aceptar como Representante"></td>
+          <td><input type="button" ng-click="borrar(t._id)" value="Borrar"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
