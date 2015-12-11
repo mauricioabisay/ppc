@@ -94,15 +94,12 @@ api.factory('usuarios', ['$http', function ($http) {
   dataFactory.getAll = function () {
     return $http.get(urlBase);
   };
-
   dataFactory.getRepresentantes = function () {
     return $http.post(urlBase + 'search', {search: {representante: true} } );
   }
-
   dataFactory.getSolicitudesRepresentantes = function () {
     return $http.post(urlBase + 'search', {search: {solicitudRepresentante: true} } );
-  }
-
+  };
   dataFactory.get = function (usuario) {
     return $http.post(urlBase + 'auth', usuario);
   };

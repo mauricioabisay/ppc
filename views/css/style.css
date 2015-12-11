@@ -591,6 +591,7 @@
         min-height: 370px;
         width: calc(50% - 10px);
         margin-top: 1vw;
+        padding-bottom: 0px;
     }
 
     .perfil {

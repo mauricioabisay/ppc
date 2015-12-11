@@ -101,6 +101,8 @@ function ($scope, $rootScope, $location, propuestas) {
     if($rootScope.usuario) {
       $scope.propuesta_nueva.autor = $rootScope.usuario.nombre;
       $scope.propuesta_nueva.autorId = $rootScope.usuario._id;
+      $scope.propuesta_nueva.alcanceLocalidad = $rootScope.usuario.localidad;
+      $scope.propuesta_nueva.alcanceEstado = $rootScope.usuario.estado;
     } else {
       $scope.propuesta_nueva.autor = 'ANÓNIMO';
     }
@@ -378,11 +380,46 @@ ctrls.controller('UserCtrl', [
     };
 }]);
 
-ctrls.controller('UsersCtrl', function ($rootScope, $scope, $location, usuarios) {
+ctrls.controller('UsersCtrl', function ($rootScope, $scope, $location, usuarios, propuestas) {
+  $scope.representante = {};
+  propuestas.getAllCategorias()
+  .success(function (data) {
+    $scope.categorias = data;
+  })
+  .error(function (err) {
+    $scope.categorias = aux_categorias;
+  });
   list();
+  $scope.guardar = function () {
+    $scope.representante.representante = true;
+    $scope.representante.categorias = new Array();
 
+    var len = $scope.auxCategorias.length;
+    for(var i = 0; i < len; i++) {
+      $scope.representante.categorias.push({
+        categoria: $scope.auxCategorias[i],
+        alcance: $scope.alcance
+      });
+    }
+
+    usuarios.save($scope.representante);
+    list();
+  };
+  this.agregarCategoria = function (categoria) {
+    if($scope.auxCategorias == null) {
+      $scope.auxCategorias = new Array();
+      $scope.auxCategorias.push(categoria);
+    } else {
+      var aux_index = $scope.auxCategorias.indexOf(categoria);
+      if(aux_index > -1) {
+        $scope.auxCategorias.splice(aux_index, 1);
+      } else {
+        $scope.auxCategorias.push(categoria);
+      }
+    }
+  };
   function list() {
-    usuarios.getAll()
+    usuarios.getRepresentantes()
     .success(function (data) {
       $scope.usuarios = data;
     })

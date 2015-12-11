@@ -1,4 +1,97 @@
 <div class="row">
+  <section class="col-sm-12 col-md-12">
+    <form class="ppc-new-tip">
+      <h2>Nuevo Representante</h2>
+
+      <div class="nombre row">
+        <label class="col-sm-12 col-md-6">Nombre:</label>
+        <span class="col-sm-12 col-md-6">
+          <input type="text" ng-model="representante.nombre" placeholder="Nombre Completo"/>
+        </span>
+      </div>
+
+      <div class="mail row">
+        <label class="col-sm-12 col-md-6">Correo Electrónico:</label>
+        <span class="col-sm-12 col-md-6">
+          <input type="text" ng-model="representante.email" placeholder="Correo Electrónico"/>
+        </span>
+      </div>
+
+      <div class="estado row">
+        <label class="col-sm-12 col-md-6">Estado:</label>
+        <span class="col-sm-12 col-md-6">
+        <select ng-model="representante.estado">
+          <option>Aguascalientes</option>
+          <option>Baja California</option>
+          <option>Baja California Sur</option>
+          <option>Campeche</option>
+          <option>Chiapas</option>
+          <option>Chihuahua</option>
+          <option>Coahuila</option>
+          <option>Colima</option>
+          <option>Durango</option>
+          <option>Estado de México</option>
+          <option>Guanajuato</option>
+          <option>Guerrero</option>
+          <option>Hidalgo</option>
+          <option>Jalisco</option>
+          <option>Michoacán</option>
+          <option>Morelos</option>
+          <option>Nayarit</option>
+          <option>Nuevo León</option>
+          <option>Oaxaca</option>
+          <option>Puebla</option>
+          <option>Querétaro</option>
+          <option>Quintana Roo</option>
+          <option>San Luis Potosí</option>
+          <option>Sinaloa</option>
+          <option>Sonora</option>
+          <option>Tabasco</option>
+          <option>Tamaulipas</option>
+          <option>Tlaxcala</option>
+          <option>Veracruz de Ignacio de la Llave</option>
+          <option>Yucatán</option>
+          <option>Zacatecas</option>
+        </select>
+        </span>
+      </div>
+
+      <div class="ciudad row">
+        <label class="col-sm-12 col-md-6">Ciudad/Localidad:</label>
+        <span class="col-sm-12 col-md-6">
+          <input type="text" ng-model="representante.localidad" placeholder="Ciudad/Localidad"/>
+        </span>
+      </div>
+
+      <div class="row">
+        <label class="col-sm-12 col-md-6">Alcance:</label>
+          <span class="col-sm-12 col-md-6">
+            <input type="radio" name="alcance" ng-model="alcance" value="Nacional">
+            Nacional
+            &nbsp;
+            <input type="radio" name="alcance" ng-model="alcance" value="Estatal">
+            Estatal
+            &nbsp;
+            <input type="radio" name="alcance" ng-model="alcance" value="Local">
+            Local
+          </span>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12" ng-repeat="c in categorias">
+          <label>
+            <input type="checkbox" name="categoria" ng-click="ctrl.agregarCategoria(c.titulo)">
+            {{c.titulo}}
+          </label>
+        </div>
+      </div>
+
+      <input type="button" ng-click="guardar()" value="Guardar">
+    </form>
+  </section>
+</div>
+
+<div class="row">
   <section class="pcc-tips-list col-sm-12 col-md-12">
     <table>
       <thead>
@@ -12,7 +105,6 @@
         <tr ng-repeat="u in usuarios">
           <td>{{u.nombre}}</td>
           <td>{{u.email}}</td>
-          <td><input type="button" value="Aceptar como Representante"></td>
           <td><input type="button" ng-click="borrar(t._id)" value="Borrar"></td>
         </tr>
       </tbody>

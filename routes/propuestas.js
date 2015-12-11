@@ -1,8 +1,18 @@
 var express = require('express');
+var nodemailer = require('nodemailer');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Propuesta = mongoose.model('Propuesta');
 var Comentario = mongoose.model('Comentario');
+var Usuario = mongoose.model('Usuario');
+
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'mauricioabisay.lopez@gmail.com',
+        pass: 'm08A%11lv'
+    }
+});
 
 router.post('/', function (req, res, next) {
   req.body.votos_detalle = [req.body.autorId];
@@ -148,7 +158,64 @@ router.put('/apoyar/:id', function (req, res, next) {
         function (err, propuesta) {
           if(err) {return next(err);}
           if(!propuesta) {return next(new Error('Lo siento, no he podido encontrar la propuesta.'));}
-          res.json(propuesta);
+
+          if(
+            ( (propuesta.votos > 1) && (propuesta.alcance=='Local')    ) ||
+            ( (propuesta.votos > 2) && (propuesta.alcance=='Estatal')  ) ||
+            ( (propuesta.votos > 3) && (propuesta.alcance=='Nacional') )
+          ) {
+            var len = propuesta.categorias.length;
+            var queryCategorias = new Array();
+
+            for(var i = 0; i < len; i++) {
+              queryCategorias.push({
+                categorias:{ $elemMatch:{
+                  categoria: propuesta.categorias[i],
+                  alcance: propuesta.alcance
+                }}
+              });
+            }
+
+            queryRepresentante = {
+              $and:[
+                {representante: true},
+                {$or: queryCategorias}
+              ]
+            };
+            Usuario.find(queryRepresentante, function (err, data) {
+              if(err) {return next(err)};
+              if(!err && data) {
+                var mailOptions = {
+                    from: 'MiPropuesta ✔ <contacto@mipropuesta.mx>',
+                    to: data[0].email,
+                    subject: propuesta.titulo + ' ha alcanzado votación para ser atendida',
+                    html:
+                    '<h1 style="color:#ff00ff;font-size:1.3em;font-weight:700">'+propuesta.titulo+'</h1>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Votos:</b>&nbsp;'+
+                    propuesta.votos+'</p>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Autor:</b>&nbsp;'+
+                    propuesta.autor+'</p>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Descripción:</b></p>'+
+                    '<p>'+propuesta.alcance+'</p>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Impacto:</b></p>'+
+                    '<p>'+propuesta.impacto+'</p>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Beneficiarios:</b></p>'+
+                    '<p>'+propuesta.beneficiarios+'</p>'+
+                    '<p style="color:#0000ff;font-size:1.3em;font-weight:500"><b>Contexto:</b></p>'+
+                    '<p>'+propuesta.contexto+'</p>'
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                    if(error){
+                        return console.log(error);
+                    }
+                    console.log('Message sent: ' + info.response);
+                });
+              }
+            });
+            res.json(propuesta);
+          }
+
         }
       );
     }

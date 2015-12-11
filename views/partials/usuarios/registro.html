@@ -3,27 +3,26 @@
     <div class="mail row">
       <label class="col-sm-12 col-md-6">Correo Electrónico:</label>
       <span class="col-sm-12 col-md-6">
-        <input type="text" ng-model="usuario.email" placeholder="Correo Electrónico"/>
+        <input type="text" ng-model="representante.email" placeholder="Correo Electrónico"/>
       </span>
-
     </div>
     <div class="pass row">
       <label class="col-sm-12 col-md-6">Contraseña:</label>
       <span class="col-sm-12 col-md-6">
-        <input type="password" ng-model="usuario.password" placeholder="Contraseña"/>
+        <input type="password" ng-model="representante.password" placeholder="Contraseña"/>
       </span>
     </div>
     <div class="nombre row">
       <label class="col-sm-12 col-md-6">Nombre:</label>
       <span class="col-sm-12 col-md-6">
-        <input type="text" ng-model="usuario.nombre" placeholder="Nombre Completo"/>
+        <input type="text" ng-model="representante.nombre" placeholder="Nombre Completo"/>
       </span>
     </div>
     <div class="sexo row">
       <label class="col-sm-12 col-md-6">Sexo:</label>
       <span class="col-sm-12 col-md-6">
-        <label><input type="radio" name="sexo" value="false" ng-model="usuario.mujer"/><span>Masculino</span></label>
-        <label><input type="radio" name="sexo" value="true" ng-model="usuario.mujer"/><span>Femenino</span></label>
+        <label><input type="radio" name="sexo" value="false" ng-model="representante.mujer"/><span>Masculino</span></label>
+        <label><input type="radio" name="sexo" value="true" ng-model="representante.mujer"/><span>Femenino</span></label>
       </span>
     </div>
     <div class="fecha row">
@@ -38,7 +37,7 @@
     <div class="estado row">
       <label class="col-sm-12 col-md-6">Estado:</label>
       <span class="col-sm-12 col-md-6">
-      <select ng-model="usuario.estado">
+      <select ng-model="representante.estado">
         <option>Aguascalientes</option>
         <option>Baja California</option>
         <option>Baja California Sur</option>
@@ -76,7 +75,7 @@
     <div class="ciudad row">
       <label class="col-sm-12 col-md-6">Ciudad/Localidad:</label>
       <span class="col-sm-12 col-md-6">
-        <input type="text" ng-model="usuario.localidad" placeholder="Ciudad/Localidad"/>
+        <input type="text" ng-model="representante.localidad" placeholder="Ciudad/Localidad"/>
       </span>
     </div>
     <center class="col-sm-12 col-md-12 row">
@@ -104,5 +103,6 @@
     <center class="col-sm-12 col-md-12 row">
       <input type="button" ng-click="ctrl.ingresar()" value="Ingresar"/>
     </center>
+    <div class="row">&nbsp;</div>
   </form>
 </div>
