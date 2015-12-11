@@ -1,6 +1,3 @@
-//https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
-//https://www.digitalocean.com/community/questions/mysql-server-keeps-stopping-unexpectedly
-
 var express = require('express');
 var router = express.Router();
 

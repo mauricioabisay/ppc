@@ -184,7 +184,7 @@ router.put('/apoyar/:id', function (req, res, next) {
             };
             Usuario.find(queryRepresentante, function (err, data) {
               if(err) {return next(err)};
-              if(!err && data) {
+              if( (!err) && (data) && (data.length > 0) ) {
                 var mailOptions = {
                     from: 'MiPropuesta ✔ <contacto@mipropuesta.mx>',
                     to: data[0].email,
