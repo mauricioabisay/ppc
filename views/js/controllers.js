@@ -130,15 +130,23 @@ ctrls.controller('PropuestaHomeCtrl', [
   .error(function (err) {
     $scope.categorias = aux_categorias;
   });
+  //Propuesta TOP Nacional
   propuestas.searchTop({alcance: 'Nacional'})
   .success(function (data) {
     $scope.top_nacional = data;
+    propuestas.getRepresentantes($scope.top_nacional)
+    .success(function (data) {$scope.top_nacional.representantes = data;});
   })
   .error(function () {
     $scope.top_nacional = null;
   });
+  //Propuesta TOP Local
   propuestas.searchTop({alcance: 'Local'})
   .success(function (data) {
+    propuestas.getRepresentantes(data)
+    .success(function (representantes) {
+      data.representantes = representantes;
+    });
     $scope.top_local = data;
   })
   .error(function () {
@@ -172,6 +180,8 @@ ctrls.controller('PropuestaDetailCtrl',
   propuestas.get($routeParams.id)
   .success(function (data) {
     $scope.item = data;
+    propuestas.getRepresentantes($scope.item)
+    .success(function (data) {$scope.item.representantes = data;});
   })
   .error(function (err) {
     $scope.item = null;
@@ -215,6 +225,7 @@ ctrls.controller('PropuestaListCtrl', [
   '$scope', '$routeParams', 'propuestas',
   function ($scope, $routeParams, propuestas) {
     $scope.currentMenu = 'list';
+    $scope.list = [];
     if(!$routeParams.filter) {
       $scope.filterCategoria = new Array();
     } else {

@@ -206,10 +206,8 @@ router.put('/apoyar/:id', function (req, res, next) {
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){
-                    if(error){
-                        return console.log(error);
-                    }
-                    console.log('Message sent: ' + info.response);
+                  if(error){return next(error);}
+                  console.log('Message sent: ' + info.response);
                 });
               }
             });

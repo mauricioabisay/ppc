@@ -116,6 +116,14 @@ app.run(function ($rootScope, $location, propuestas) {
   $rootScope.detalle = function (item) {
     $location.path('/detail/' + item._id);
   };
+
+  $rootScope.getRepresentantes = function (item) {
+    propuestas.getRepresentantes(item)
+    .success(function (data) {
+      item.representantes = data;
+    }).error(function (error) {
+    });
+  };
 });
 
 app.directive('ppcNav', function () {

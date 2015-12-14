@@ -10,6 +10,7 @@
     <span ng-repeat="c in item.categorias">{{c}}{{(!$last)?', ':''}}</span>
   </section>
   <h4 class="representantes-texto">REPRESENTANTES:</h4>
+  <div ng-init="getRepresentantes(item)"></div>
   <section class="representantes" ng-repeat="r in item.representantes">
     <article class="representante">
       <section class="nombre">{{r.nombre}}</section>

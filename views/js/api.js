@@ -48,6 +48,10 @@ api.factory('propuestas', ['$http', function ($http) {
     return $http.get('/tips/random');
   };
 
+  dataFactory.getRepresentantes = function (propuesta) {
+    return $http.post('/usuarios/representantesPropuesta', {'propuesta':propuesta});
+  }
+
   return dataFactory;
 }]);
 
